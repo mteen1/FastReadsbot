@@ -1,0 +1,19 @@
+services:
+  main:
+    build: .
+    networks:
+      - botnet
+  fmongo:
+    build: ./database
+    networks:
+      - botnet
+    volumes:
+      - freads:/data/db
+
+volumes:
+  freads:
+
+networks:
+  botnet:
+
+
