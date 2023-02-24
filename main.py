@@ -115,8 +115,8 @@ if __name__ == '__main__':
 
     application.run_webhook(
         listen='0.0.0.0',
-        port=8443,
+        port=80,
         key='private.key',
         cert='cert.pem',
-        webhook_url='https://fastreads.onrender.com:8443'
+        webhook_url='https://fastreads.onrender.com'
     )
