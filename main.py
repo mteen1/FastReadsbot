@@ -113,4 +113,11 @@ if __name__ == '__main__':
     application.add_handler(inline_title_handler)
     # application.add_handler(unknown_handler)
 
-    application.run_polling()
+    application.run_webhook(
+        listen='0.0.0.0',
+        port=8443,
+        secret_token=TOKEN,
+        key='private.key',
+        cert='cert.pem',
+        webhook_url='https://fastreads.onrender.com:8443'
+    )

@@ -20,4 +20,3 @@ bundles/
 vendor/pkg/
 pyenv
 Vagrantfile
-api_key.py
