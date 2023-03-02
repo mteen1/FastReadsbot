@@ -1,4 +1,5 @@
 import logging
+from pprint import pprint
 
 from telegram import Update, InlineQueryResultArticle, InputTextMessageContent, InlineKeyboardButton, \
     InlineKeyboardMarkup
@@ -13,10 +14,12 @@ logging.basicConfig(
 )
 
 
-conn_str = "mongodb://172.18.0.2"
-
+# connect to MongoDB Atlas
+conn_str = "mongodb+srv://mteen:QPwklsARMojrZmya@cluster0.fxaegkg.mongodb.net/?retryWrites=true&w=majority"
 # set a 5-second connection timeout
 client = motor.motor_asyncio.AsyncIOMotorClient(conn_str, serverSelectionTimeoutMS=5000)
+db = client['Books']
+collection = db['books']
 
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -51,7 +54,7 @@ async def send_gateway(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 # Different types of inline searches
 async def inline_title(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    query = update.inline_query.query.strip()
+    query = update.inline_query.query
     books = await search_title_db(query)
     results = []
     format_results(results, books)
@@ -60,7 +63,7 @@ async def inline_title(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 async def inline_author(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    query = update.inline_query.query[7:].strip()
+    query = update.inline_query.query[7:]
     print(f'searching for {query}.....')
     books = await search_author_db(query)
     results = []
@@ -72,6 +75,7 @@ async def inline_author(update: Update, context: ContextTypes.DEFAULT_TYPE):
 def format_results(results, books):
     # format the results and add them to the results list
     for book in books:
+        pprint(book)
         keyboard = [
             [
                 InlineKeyboardButton("خرید کتاب", url=f"https://t.me/FastReadsbot?start={book['_id']}"),
@@ -82,10 +86,10 @@ def format_results(results, books):
             InlineQueryResultArticle(
                 id=book['_id'],
                 title=book['title'],
-                description=book['author'],
+                description=', '.join(book['authors']),
                 reply_markup=reply_markup,
                 input_message_content=InputTextMessageContent(f"نام کتاب: {book['title']}\n"
-                                                              f"نویسنده: {book['author']}\n"
+                                                              f"نویسنده: {', '.join(book['authors'])}\n"
 
                                                               )
             )
@@ -98,7 +102,7 @@ if __name__ == '__main__':
     summary_handler = CommandHandler('start', send_gateway, filters=filters.Regex('^/start\s+.+'))
     start_handler = CommandHandler('start', start, filters=filters.Regex('^/start$'))
     inline_author_handler = InlineQueryHandler(inline_author, pattern=r'author: \w{3,}')
-    inline_title_handler = InlineQueryHandler(inline_title)
+    inline_title_handler = InlineQueryHandler(inline_title, pattern=r'\w{4,}')
 
     # inline_new_handler = InlineQueryHandler(inline_new, pattern=r'new')
     # inline_popular_handler = InlineQueryHandler(inline_popular, pattern=r'popular')

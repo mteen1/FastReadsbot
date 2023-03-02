@@ -1,14 +1,17 @@
 services:
-  main:
+  fbot:
     build: .
     networks:
       - botnet
+    restart: on-failure
+
   fmongo:
     build: ./database
     networks:
       - botnet
     volumes:
       - freads:/data/db
+    restart: on-failure
 
 volumes:
   freads:
