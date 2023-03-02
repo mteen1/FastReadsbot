@@ -1,4 +1,5 @@
 import pprint
+
 import motor.motor_asyncio
 import motor
 # connect to MongoDB Atlas
@@ -32,23 +33,30 @@ async def search_title_db(title):
     return res  # books
 
 
-async def get_server_info(client):
+async def get_server_info():
+    # replace this with your MongoDB connection string
+    conn_str = "mongodb://localhost:27017"
+    # set a 5-second connection timeout
+    client = motor.motor_asyncio.AsyncIOMotorClient(conn_str, serverSelectionTimeoutMS=5000)
     try:
         print(await client.server_info())
     except Exception:
         print("Unable to connect to the server.")
 
 
-# async def do_insert():
-#     result = await client.test_collection.insert_many()(
-#
-#         [{'i': i} for i in range(50)])
-#
-#     print('inserted %d docs' % (len(result.inserted_ids),))
-#
+async def do_insert():
+    result = await client.test_collection.insert_many()(
+
+        [{'i': i} for i in range(50)])
+
+    print('inserted %d docs' % (len(result.inserted_ids),))
+
 
 # loop = asyncio.get_event_loop(
 if __name__ == '__main__':
+    conn_str = "mongodb://localhost:27017"
+    # set a 5-second connection timeout
+    client = motor.motor_asyncio.AsyncIOMotorClient(conn_str, serverSelectionTimeoutMS=5000)
     loop = client.get_io_loop()
-    books = loop.run_until_complete(search_author_db('test'))
+    books = loop.run_until_complete(search_author_db(''))
     print(books)
