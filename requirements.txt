@@ -1,4 +1,4 @@
-python-telegram-bot==20.0
+python-telegram-bot==20.1
 motor==3.1.1
 pymongo==4.3.3
 aiohttp
