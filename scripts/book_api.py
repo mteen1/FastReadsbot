@@ -8,8 +8,49 @@ from datetime import datetime
 from pymongo.errors import DuplicateKeyError
 
 
-async def search_books(query):
-    url = f'https://www.googleapis.com/books/v1/volumes?q={query}&maxResults=1'   # &maxResults=1
+async def search_parse_books(query, maxresult=7):
+    """
+    function for searching via google api
+    :param query: the title of the book entered by user
+    :param maxresult: max number of books returned
+    :return: list of books in dict structure
+    """
+    url = f'https://www.googleapis.com/books/v1/volumes?q={query}&maxResults={maxresult}'  # &maxResults=1
+    async with aiohttp.ClientSession() as session:
+        async with session.get(url) as response:
+            book_results = await response.json()
+    res = []
+    for book in book_results['items']:
+        book = book['volumeInfo']
+        # parse the JSON response to get book details
+        title = book.get('title', None)
+        authors = book.get('authors', None)
+        publisher = book.get('publisher', None)
+        publisheddate = None
+        if 'publishedDate' in book:
+            try:
+                publishedDate = book['publishedDate']
+            except ValueError:
+                pass
+        description = book.get('description', None)
+        industryIdentifiers = book.get('industryIdentifiers', None)
+        categories = book.get('categories', None)
+
+        # create a dictionary for the book details
+        book_dict = {
+            'title': title,
+            'authors': authors,
+            'publisher': publisher,
+            'publishedDate': publisheddate,
+            'industryIdentifiers': industryIdentifiers,
+            'categories': categories
+        }
+        res.append(book_dict)
+    return res
+
+
+async def search_books(query, maxresult=1):
+    url = f'https://www.googleapis.com/books/v1/volumes?q={query}&maxResults={maxresult}'   # &maxResults=1
     async with aiohttp.ClientSession() as session:
         async with session.get(url) as response:
             data = await response.json()
@@ -68,6 +109,6 @@ async def main():
                 pass
             # print the ID of the inserted book
 
-
-asyncio.run(main())
+if __name__ =="__main__":
+    asyncio.run(main())
 

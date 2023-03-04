@@ -1,0 +1,9 @@
+{
+  "start": "Welcome to the FastReads! I can help you find summaries for your favorite books. Just type in the title of the book and I'll do the rest. If you need help, type /help for more.\n Happy reading!\uD83D\uDE0A" ,
+  "s_title":"search by title",
+  "s_author":"search by author",
+  "latest": "latest",
+  "get_summary": "get summary",
+  "book_info": "Title: {title}\nAuthor(s): {author}\n Genre:{genre}",
+  "help": "Search for books using inline mode!\n also you can request summary by sending /add + book_name\nfor persian send /lang"
+}

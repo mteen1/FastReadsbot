@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/docker_FastReads.iml" filepath="$PROJECT_DIR$/.idea/docker_FastReads.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/FastReadsbot.iml" filepath="$PROJECT_DIR$/.idea/FastReadsbot.iml" />
     </modules>
   </component>
 </project>
