@@ -73,17 +73,23 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def send_summary(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """parse the ObjectId from the query and get the summary from db"""
     query = update.message.text[7:]
-    print(f'answer_callback:\n searching for{query}')
+    print(f'searching for summary:{query}')
     summary = await get_summary(query, db)
-    summary_text = summary['summary']
-    chunk_size = 4096
-    num_chunks = math.ceil(len(summary_text) / chunk_size)
+    try:
+        summary_text = summary['summary']
 
-    for i in range(num_chunks):
-        start_index = i * chunk_size
-        end_index = (i + 1) * chunk_size
-        chunk = summary_text[start_index:end_index]
-        await update.message.reply_text(chunk)
+        chunk_size = 4096
+        num_chunks = math.ceil(len(summary_text) / chunk_size)
+
+        for i in range(num_chunks):
+            start_index = i * chunk_size
+            end_index = (i + 1) * chunk_size
+            chunk = summary_text[start_index:end_index]
+            await update.message.reply_text(chunk)
+    except TypeError:
+        await update.message.reply_text(lang["no_sum"])
+        await context.bot.send_message(chat_id=527304915,
+                                                 text=f"'{query}' summary requested\n----------------------")
 
 
 # Different types of inline searches
@@ -133,7 +139,7 @@ def format_results(results, books):
                 input_message_content=InputTextMessageContent(
                     lang["book_info"].format(title=book['title'], author=(', '.join(book['authors'])),
                                              genre=book.get('categories', ''))
-                    )
+                )
             ))
 
 
@@ -144,7 +150,7 @@ async def send_help(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def summary_request(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """sends the summary requests to bot admin"""
     book_name = update.message.text[5:]
-    message = await context.bot.send_message(chat_id=527304915, text=f"'{book_name}' requested")
+    message = await context.bot.send_message(chat_id=527304915, text=f"'{book_name}' book requested\n----------------------")
 
 
 if __name__ == '__main__':
