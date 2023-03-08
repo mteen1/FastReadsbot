@@ -1,6 +1,15 @@
 
 # FastReads
 
+## Disclaimer
+
+Please note that this project is intended for fun and educational purposes only. It is not intended to be a standard or production-level application. The code and implementation may not follow best practices or industry standards.
+
+However, this project can serve as a good example for those who are interested in learning how to build a Python Telegram bot and use MongoDB as a database. Please use the code and information provided in this project at your own risk, and make any necessary modifications to fit your specific needs and requirements.
+
+The author of this project is not responsible for any damages or issues that may arise from the use of this code.
+
+## About
 FastReads is a Python Telegram bot that allows users to search for books and provides a summary of the book using MongoDB and the Python Telegram Bot (PTB) library. The bot supports both Persian and English languages.
 
 FastReads searches for books based on user input and retrieves a summary of the book.
@@ -62,13 +71,6 @@ Start the server
 ```bash
 python main.py
 ```
-## Disclaimer
-
-Please note that this project is intended for fun and educational purposes only. It is not intended to be a standard or production-level application. The code and implementation may not follow best practices or industry standards.
-
-However, this project can serve as a good example for those who are interested in learning how to build a Python Telegram bot and use MongoDB as a database. Please use the code and information provided in this project at your own risk, and make any necessary modifications to fit your specific needs and requirements.
-
-The author of this project is not responsible for any damages or issues that may arise from the use of this code.
 
 ## Screenshots
 
