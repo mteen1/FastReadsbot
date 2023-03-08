@@ -5,10 +5,12 @@ from bson import ObjectId
 from motor import motor_asyncio
 import motor
 from pymongo.errors import DuplicateKeyError
+import os
+from dotenv import load_dotenv
 
 from db_access import search_title_db
 
-conn_str = "mongodb+srv://mteen:QPwklsARMojrZmya@cluster0.fxaegkg.mongodb.net/?retryWrites=true&w=majority"
+conn_str = os.getenv("db_connection")
 # set a 5-second connection timeout
 client = motor.motor_asyncio.AsyncIOMotorClient(conn_str, serverSelectionTimeoutMS=5000)
 db = client['Books']
