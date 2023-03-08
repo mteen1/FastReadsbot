@@ -62,7 +62,7 @@ Start the server
 ```bash
 python main.py
 ```
-## Disclaimer:
+## Disclaimer
 
 Please note that this project is intended for fun and educational purposes only. It is not intended to be a standard or production-level application. The code and implementation may not follow best practices or industry standards.
 
