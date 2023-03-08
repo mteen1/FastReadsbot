@@ -3,9 +3,9 @@
 
 FastReads is a Python Telegram bot that allows users to search for books and provides a summary of the book using MongoDB and the Python Telegram Bot (PTB) library. The bot supports both Persian and English languages.
 
-FastReads searches for books based on user input. The bot then retrieves a summary of the book.
+FastReads searches for books based on user input and retrieves a summary of the book.
 
-You can add books to your database using Google book api and summarize using Chatgpt. Then use the scripts in `/scripts` directory.
+You can add books to your database using Google book api and summarize with other tools. Then use the scripts in `/scripts` directory.
 
 The book names and their summaries are stored in the `Books` database in the `books` and `summary` collections respectively. In the future, user collections will be added to allow users to store their favorite books.
 
