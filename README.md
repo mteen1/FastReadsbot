@@ -66,5 +66,5 @@ python main.py
 
 ## Screenshots
 
-![App Screenshot](/screenshots/screenshot.png)
-
+![App Screenshot](/screenshots/1.png)
+![App Screenshot](/screenshots/2.png)
