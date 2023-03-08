@@ -88,7 +88,7 @@ async def send_summary(update: Update, context: ContextTypes.DEFAULT_TYPE):
             chunk = summary_text[start_index:end_index]
             await update.message.reply_text(chunk)
     except TypeError:
-        await update.message.reply_text(lang["no_sum"])
+        await update.message.reply_text('Oops! summary not found! :(')
 
         # send the book id to admin, so it can be added later
         await context.bot.send_message(chat_id=os.getenv('admin_chat'),

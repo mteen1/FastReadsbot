@@ -19,6 +19,8 @@ To run this project, you will need to add the following environment variables to
 
 `db_connection`
 
+`admin_chat`
+
 
 ## Setup
 
