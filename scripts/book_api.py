@@ -4,6 +4,8 @@ import asyncio
 import motor
 import motor.motor_asyncio
 from datetime import datetime
+import os
+from dotenv import load_dotenv
 
 from pymongo.errors import DuplicateKeyError
 
@@ -56,9 +58,10 @@ async def search_books(query, maxresult=1):
             data = await response.json()
             return data
 
-
+load_dotenv()
 # connect to MongoDB Atlas
-conn_str = "mongodb+srv://mteen:QPwklsARMojrZmya@cluster0.fxaegkg.mongodb.net/?retryWrites=true&w=majority"
+conn_str = os.getenv('db_connection')
+
 # set a 5-second connection timeout
 client = motor.motor_asyncio.AsyncIOMotorClient(conn_str, serverSelectionTimeoutMS=5000)
 db = client['Books']
