@@ -243,3 +243,4 @@ fabric.properties
 *.un
 *.un~
 *~
+/scripts/manual_add.py
