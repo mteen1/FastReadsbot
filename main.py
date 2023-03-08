@@ -48,6 +48,7 @@ async def switch_lang(update: Update, context: ContextTypes.DEFAULT_TYPE):
     else:
         lang = fa
         await update.message.reply_text('زبان به فارسی تغییر یافت!')
+    await start(update, context)
 
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -88,8 +89,10 @@ async def send_summary(update: Update, context: ContextTypes.DEFAULT_TYPE):
             await update.message.reply_text(chunk)
     except TypeError:
         await update.message.reply_text(lang["no_sum"])
-        await context.bot.send_message(chat_id=527304915,
-                                                 text=f"'{query}' summary requested\n----------------------")
+
+        # send the book id to admin, so it can be added later
+        await context.bot.send_message(chat_id=os.getenv('admin_chat'),
+                                       text=f"'{query}' summary requested\n----------------------")
 
 
 # Different types of inline searches
@@ -150,17 +153,18 @@ async def send_help(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def summary_request(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """sends the summary requests to bot admin"""
     book_name = update.message.text[5:]
-    message = await context.bot.send_message(chat_id=527304915, text=f"'{book_name}' book requested\n----------------------")
+    message = await context.bot.send_message(chat_id=os.getenv('admin_chat'),
+                                             text=f"'{book_name}' book requested\n----------------------")
 
 
 if __name__ == '__main__':
     application = ApplicationBuilder().token(os.getenv('bot_token')).build()
 
-    summary_handler = CommandHandler('start', send_summary, filters=filters.Regex('^/start\s+.+'))
+    summary_handler = CommandHandler('start', send_summary, filters=filters.Regex('^/start\s.+'))
     start_handler = CommandHandler('start', start, filters=filters.Regex('^/start$'))
     req_handler = CommandHandler('add', summary_request)
     inline_author_handler = InlineQueryHandler(inline_author, pattern=r'author: \w{3,}')
-    inline_latest_handler = InlineQueryHandler(inline_latest, pattern=r'\blatest\b')
+    inline_latest_handler = InlineQueryHandler(inline_latest, pattern=r'latest')
     inline_title_handler = InlineQueryHandler(inline_title)
 
     application.add_handler(start_handler)
