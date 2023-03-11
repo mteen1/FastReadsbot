@@ -5,5 +5,5 @@
   "latest": "latest",
   "get_summary": "get summary",
   "book_info": "Title: {title}\nAuthor(s): {author}\n Genre:{genre}",
-  "help": "Search for books using inline mode!\n also you can request summary by sending /add + book_name\nfor persian send /lang"
+  "help": "Search for books using inline mode!\n also you can request summary by sending /add + book_name\nfor persian send /lang\ndeveloper: @mteen_1"
 }
