@@ -73,6 +73,4 @@ python main.py
 ```
 
 ## Screenshots
-
-![App Screenshot](/screenshots/1.png)
-![App Screenshot](/screenshots/2.png)
+<img src="/screenshots/1.png" alt="" width="200">      <img src="/screenshots/2.png" alt="" width="200">
