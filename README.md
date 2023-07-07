@@ -37,7 +37,7 @@ To run this project, you will need to add the following environment variables to
 
 You can have either a local MongoDB database or
 a MongoDB Atlas database set up to store and retrieve data. 
-* To set up a local database, install MongoDB and create a new database by running mongod and mongo commands.
+* To set up a local database, install MongoDB and create a new database by running `mongod` and `mongo`commands.
 
 * For MongoDB Atlas, sign up and follow the setup instructions on their website. 
 
